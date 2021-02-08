@@ -1,10 +1,10 @@
 package com.arslan_aziz.food_for_thought.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.arslan_aziz.food_for_thought.service.ArticleProcessor;
 import com.arslan_aziz.food_for_thought.models.ProcessedArticle;
 
+@CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
 public class ProcessedArticleController {
 	

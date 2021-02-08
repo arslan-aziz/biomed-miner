@@ -1,13 +1,13 @@
 {
     "nodes": [
-        {"id": "V1", "group": 1},
-        {"id": "V2", "group": 1},
-        {"id": "V3", "group": 1},
-        {"id": "V4", "group": 1}
+        {"id": "Try", "group": 1},
+        {"id": "Selecting", "group": 2},
+        {"id": "An", "group": 1},
+        {"id": "Input!", "group": 2}
     ],
     "links": [
-        {"source": "V1", "target": "V2", "value": 1},
-        {"source": "V2", "target": "V3", "value": 8},
-        {"source": "V1", "target": "V4", "value": 3}
+        {"source": "Try", "target": "Selecting", "value": 1},
+        {"source": "Selecting", "target": "An", "value": 8},
+        {"source": "An", "target": "Input!", "value": 3}
     ]
 }

@@ -4,7 +4,7 @@ import App from './App';
 import Test from './Test';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
-import data from './miserables.json';
+import miserablesdata from './miserables.json';
 import mockdata from './mockdata.json';
 import axios from 'axios';
 
@@ -21,29 +21,43 @@ const selectionToIdDict = {
   3: '3423'
 }
 
+const parseResponse = (response) => {
+  let graphData = {
+    nodes: [],
+    links: []
+  }
+
+  for (const val in response.data.graph.adjVertices) {
+    console.log('Processing '.concat(val))
+    // add to vertices
+    graphData.nodes.push({id: val, group: 1})
+    // add corresponding edges
+    response.data.graph.adjVertices[val].forEach(other => {
+      graphData.links.push({source: val, target: Object.keys(other)[0], value: 1})
+    })
+  }
+
+  return graphData;
+}
+
 const selectData = (selector) => {
   console.log(selector);
 
   // get resource id from selection
   let articleId = selectionToIdDict[selector];
+  let url = 'http://localhost:8080/article/'.concat(articleId);
+  console.log(url) 
 
   const options = {
-    url: 'localhost:8080/article',
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json'
-    },
-    params: {
-      id: articleId
-    }
+    url: url,
+    method: 'GET'
   }
 
   axios(options)
   .then(response => {
-    console.log(response)
-    // TODO: format response data
+    let parsedData = parseResponse(response)
     ReactDOM.render(
-      <Test data={ data }/>,
+      <Test data={ parsedData }/>,
       document.getElementById('graph')
     );
   })
@@ -69,6 +83,6 @@ ReactDOM.render(
 
 // display mock data by default
 ReactDOM.render(
-  <Test data={ data }/>,
+  <Test data={ miserablesdata }/>,
   document.getElementById('graph')
 );
