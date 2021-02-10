@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -16,11 +19,22 @@ import com.arslan_aziz.food_for_thought.models.Article;
 public class ArticleLoader implements ResourceLoaderAware {
 	
 	private ResourceLoader resourceLoader;
+	private Map<String, String> idToPathMap;
+	
+	@Autowired
+	public ArticleLoader(@Qualifier("RawArticleIdToPathMap") Map<String, String> idToPathMap) {
+		this.idToPathMap = idToPathMap;
+	}
+	
 	public void setResourceLoader(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
 	
-	public Article getArticleFromPath(String path) throws IOException {
+	public Article getArticleFromId(String articleId) throws IOException {
+		
+		// validate that the id exists in the mapping
+		String path = idToPathMap.get(articleId);
+		
 		Resource resource = resourceLoader.getResource("file:" + path);
 		
 		InputStream in = resource.getInputStream();
@@ -47,5 +61,4 @@ public class ArticleLoader implements ResourceLoaderAware {
 		
 		return article;
 	}
-
 }

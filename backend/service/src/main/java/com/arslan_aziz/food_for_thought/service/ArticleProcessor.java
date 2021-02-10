@@ -2,22 +2,33 @@ package com.arslan_aziz.food_for_thought.service;
 
 import org.springframework.stereotype.Service;
 
+import com.arslan_aziz.food_for_thought.dao.ProcessedArticleLoader;
 import com.arslan_aziz.food_for_thought.models.ProcessedArticle;
 import com.arslan_aziz.food_for_thought.models.graph.ArticleGraph;
 import com.arslan_aziz.food_for_thought.models.graph.ArticleGraphEdgeProperties;
 import com.arslan_aziz.food_for_thought.models.graph.ArticleGraphVertex;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /*
  * Perform parsing operations on a natural language biomedical article.
  */
 @Service
 public class ArticleProcessor {
+
+	// Hold onto an instance of ProcessedArticleLoader to load articles that have already been processed
+	private ProcessedArticleLoader loader;
+	
+	@Autowired
+	public ArticleProcessor(ProcessedArticleLoader loader) {
+		this.loader = loader;
+	}
 	
 	public ProcessedArticle processArticle(String articleId) {
-		ProcessedArticle article = null;
-		ArticleGraph graph;
 		
-		// Mock data
+		ArticleGraph graph = loader.getProcessedArticleFromId(articleId);
+		
+		ProcessedArticle article = new ProcessedArticle.ProcessedArticleBuilder().name("Hello World!").id(2).graph(graph).build();
+		/* Mock data
 		if (articleId.equals("1234")) {
 			graph = new ArticleGraph();
 			ArticleGraphVertex vertex1 = new ArticleGraphVertex.ArticleGraphVertexBuilder().nameId("1").nomenclature("entity1").build();
@@ -39,6 +50,8 @@ public class ArticleProcessor {
 			graph = new ArticleGraph();
 			article = new ProcessedArticle.ProcessedArticleBuilder().name("Hello Music!").id(5).graph(graph).build();
 		}
+		
+		*/
 		
 		return article;
 	}
