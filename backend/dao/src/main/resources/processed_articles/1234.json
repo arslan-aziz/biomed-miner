@@ -1,0 +1,12 @@
+{
+	"name": "1234",
+	"id": "1234",
+	"graph": {
+		"adjVertices": {
+			"entity1": [
+				{"entity2": 3.2},
+				{"entity3": 4.5}
+			]
+		}
+	}
+}

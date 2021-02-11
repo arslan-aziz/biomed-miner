@@ -1,6 +1,7 @@
 package com.arslan_aziz.food_for_thought.dao;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,6 +36,11 @@ public class ArticleLoader implements ResourceLoaderAware {
 		// validate that the id exists in the mapping
 		String path = idToPathMap.get(articleId);
 		
+		File pathFile = new File(path);
+		if (!pathFile.exists()) {
+			return null;
+		}
+		
 		Resource resource = resourceLoader.getResource("file:" + path);
 		
 		InputStream in = resource.getInputStream();
@@ -49,6 +55,7 @@ public class ArticleLoader implements ResourceLoaderAware {
 			allLines.append(line);
 		}
 		reader.close();
+		in.close();
 		
 		// create Article from resource
 		Article article = new Article.ArticleBuilder()
