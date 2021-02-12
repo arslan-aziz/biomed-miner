@@ -1,7 +1,12 @@
 package com.arslan_aziz.food_for_thought.models;
 
 import com.arslan_aziz.food_for_thought.models.graph.ArticleGraph;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+@JsonDeserialize(builder = ProcessedArticle.ProcessedArticleBuilder.class)
 public class ProcessedArticle {
 	
 	// members
@@ -39,15 +44,15 @@ public class ProcessedArticle {
 		
 		public ProcessedArticleBuilder() {}
 		
-		public ProcessedArticleBuilder name(String name) {
+		public ProcessedArticleBuilder withName(String name) {
 			this.name = name;
 			return this;
 		}
-		public ProcessedArticleBuilder id(int id) {
+		public ProcessedArticleBuilder withId(int id) {
 			this.id = id;
 			return this;
 		}
-		public ProcessedArticleBuilder graph(ArticleGraph graph) {
+		public ProcessedArticleBuilder withGraph(ArticleGraph graph) {
 			this.graph = graph;
 			return this;
 		}

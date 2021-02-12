@@ -27,10 +27,15 @@ const parseResponse = (response) => {
     links: []
   }
 
-  for (const val in response.data.graph.adjVertices) {
-    console.log('Processing '.concat(val))
-    // add to vertices
+  console.log(response.data.graph.idToVertexMap)
+
+  // add vertices
+  for (const val in response.data.graph.idToVertexMap) {
     graphData.nodes.push({id: val, group: 1})
+  }
+
+  // add edges
+  for (const val in response.data.graph.adjVertices) {
     // add corresponding edges
     response.data.graph.adjVertices[val].forEach(other => {
       graphData.links.push({source: val, target: Object.keys(other)[0], value: 1})

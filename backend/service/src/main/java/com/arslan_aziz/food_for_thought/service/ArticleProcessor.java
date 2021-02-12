@@ -25,10 +25,10 @@ public class ArticleProcessor {
 	
 	public ProcessedArticle processArticle(String articleId) {
 		
-		ArticleGraph graph = loader.getProcessedArticleFromId(articleId);
+		ProcessedArticle article = loader.getProcessedArticleFromId(articleId);
 		
-		ProcessedArticle article = new ProcessedArticle.ProcessedArticleBuilder().name("Hello World!").id(2).graph(graph).build();
-		/* Mock data
+//		ProcessedArticle article = new ProcessedArticle.ProcessedArticleBuilder().name("Hello World!").id(2).graph(graph).build();
+		/*
 		if (articleId.equals("1234")) {
 			graph = new ArticleGraph();
 			ArticleGraphVertex vertex1 = new ArticleGraphVertex.ArticleGraphVertexBuilder().nameId("1").nomenclature("entity1").build();
@@ -42,6 +42,7 @@ public class ArticleProcessor {
 			
 			article = new ProcessedArticle.ProcessedArticleBuilder().name("Hello World!").id(3).graph(graph).build();
 		}
+		/*
 		else if (articleId.equals("5678")) {
 			graph = new ArticleGraph();
 			article = new ProcessedArticle.ProcessedArticleBuilder().name("Hello Jove!").id(4).graph(graph).build();

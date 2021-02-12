@@ -1,6 +1,11 @@
 package com.arslan_aziz.food_for_thought.models.graph;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 // Consider an abstract vertex for different entity types extracted from article.
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+@JsonDeserialize(builder = ArticleGraphVertex.ArticleGraphVertexBuilder.class)
 public class ArticleGraphVertex {
 	
 	private final String nameId;
@@ -23,11 +28,11 @@ public class ArticleGraphVertex {
 		private String nomenclature;
 		
 		public ArticleGraphVertexBuilder() { }
-		public ArticleGraphVertexBuilder nameId(String nameId) {
+		public ArticleGraphVertexBuilder withNameId(String nameId) {
 			this.nameId = nameId;
 			return this;
 		}
-		public ArticleGraphVertexBuilder nomenclature(String nomenclature) {
+		public ArticleGraphVertexBuilder withNomenclature(String nomenclature) {
 			this.nomenclature = nomenclature;
 			return this;
 		}
@@ -45,21 +50,6 @@ public class ArticleGraphVertex {
 	@Override
 	public String toString() {
 		return nameId + ":" + nomenclature;
-	}
-	
-	@Override
-	public boolean equals(Object other) {
-		boolean result = false;
-		if (other instanceof ArticleGraphVertex) {
-			ArticleGraphVertex that = (ArticleGraphVertex) other;
-			result = this.toString().equals(that.toString());
-		}
-		return result;
-	}
-	
-	@Override
-	public int hashCode() {
-		return this.toString().hashCode();
 	}
 	
 	
