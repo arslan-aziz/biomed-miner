@@ -1,25 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Test from './Test';
+import Test from './Graph';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
-import miserablesdata from './miserables.json';
-import mockdata from './mockdata.json';
+import defaultGraph from './data/default_graph.json';
 import axios from 'axios';
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-const selectionToIdDict = {
-  1: '1234',
-  2: '5678',
-  3: '3423'
-}
+import selectionToIdDict from './config/selection_to_id_dict';
 
 const parseResponse = (response) => {
   let graphData = {
@@ -70,7 +57,7 @@ const selectData = (selector) => {
     console.log(error)
     // if error, display mock data
     ReactDOM.render(
-      <Test data={ mockdata }/>,
+      <Test data={ defaultGraph }/>,
       document.getElementById('graph')
     );
   })
@@ -88,6 +75,6 @@ ReactDOM.render(
 
 // display mock data by default
 ReactDOM.render(
-  <Test data={ miserablesdata }/>,
+  <Test data={ defaultGraph }/>,
   document.getElementById('graph')
 );
