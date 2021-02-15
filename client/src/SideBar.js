@@ -11,12 +11,12 @@ class SideBar extends React.Component {
         return (
             <div style={sidebarStyle}>
                 <div style={{marginBottom: '1em'}}>
-                    <h1>You have lots on your plate already.<br></br>
-                        Don't let choosing the right food be another.</h1>
+                    <h1>Stay abreast of biomedical research developments.<br></br>
+                        Produce cutting edge insights, therapies, and technologies.</h1>
                 </div>
                 <div style={{fontSize: '20px', marginBottom: '1em'}}>
-                    Food for Thought uses Machine Learning to collect and visualize nutritional
-                    information so you can achieve your diet goals and needs.
+                    Biomed-Miner uses Natural Language Processing to collect and visualize biomedical research 
+                    so you can stay on the cutting edge of your field.
                 </div>
                 <DropdownButton id="demo-button" title="Select Article" onSelect={(evt) => {
                     this.props.selectData(evt)
@@ -31,7 +31,9 @@ class SideBar extends React.Component {
 }
 
 const sidebarStyle = {
-    backgroundImage: `url(${backdrop})`,
+    backgroundColor: 'black',
+    color: 'green',
+    fontFamily: 'courier',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     height: '100%',
@@ -40,6 +42,7 @@ const sidebarStyle = {
     justifyContent: 'center',
     paddingRight: '1em',
     paddingLeft: '1em'
+
 }
 
 export default SideBar;
