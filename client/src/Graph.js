@@ -1,13 +1,13 @@
 import React from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
 
-const Test = (props) => {
+const Graph = (props) => {
     return (
         <ForceGraph2D
           graphData={ props.data }
           nodeAutoColorBy="group"
           nodeCanvasObject={(node, ctx, globalScale) => {
-            const label = node.id;
+            const label = node.name;
             const fontSize = 12/globalScale;
             ctx.font = `${fontSize}px Sans-Serif`;
             const textWidth = ctx.measureText(label).width;
@@ -32,4 +32,4 @@ const Test = (props) => {
     )
 }
 
-export default Test;
+export default Graph;

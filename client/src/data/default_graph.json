@@ -1,9 +1,9 @@
 {
     "nodes": [
-        {"id": "Try", "group": 1},
-        {"id": "Selecting", "group": 2},
-        {"id": "An", "group": 1},
-        {"id": "Input!", "group": 2}
+        {"id": "Try", "name": "Try", "group": 1},
+        {"id": "Selecting", "name": "Selecting", "group": 2},
+        {"id": "An", "name": "An", "group": 1},
+        {"id": "Input!", "name": "Input!", "group": 2}
     ],
     "links": [
         {"source": "Try", "target": "Selecting", "value": 1},

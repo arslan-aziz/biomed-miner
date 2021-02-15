@@ -1,40 +1,90 @@
 {
-	"name":"Hello Graph!",
-	"id":5,
+	"name":"Autoimmune Pancreatitis",
+	"id":5678,
 	"graph": {
 		"adjVertices": {
 			"1": [
-				{"2": "1"}
+				{"2": "1"},
+				{"3": "1"},
+				{"4": "1"},
+				{"9": "1"},
+				{"10": "1"},
+				{"11": "1"}
 			],
-			"2": [
-				{"1": "1"}
+			"4": [
+				{"5": "1"},
+				{"6": "1"},
+				{"7": "1"},
+				{"8": "1"}
 			],
-			"3": [
-				{"2": "2"}
+			"11": [
+				{"12": "2"},
+				{"13": "1"},
+				{"14": "1"}
 			]
 		},
 		"idToVertexMap": {
 			"1": {
 				"nameId": "1",
-				"nomenclature": "node1"
+				"nomenclature": "autoimmune pancreatitis"
 			},
 			"2": {
 				"nameId": "2",
-				"nomenclature": "node2"
+				"nomenclature": "chronic pancreatitis"
 			},
 			"3": {
 				"nameId": "3",
-				"nomenclature": "node3"
+				"nomenclature": "tissue damage"
+			},
+			"4": {
+				"nameId": "4",
+				"nomenclature": "autoimmune disease"
+			},
+			"5": {
+				"nameId": "5",
+				"nomenclature": "diabetes Type 1"
+			},
+			"6": {
+				"nameId": "6",
+				"nomenclature": "Grave's disease'"
+			},
+			"7": {
+				"nameId": "7",
+				"nomenclature": "Multiple Sclerosis"
+			},
+			"8": {
+				"nameId": "8",
+				"nomenclature": "arthritis"
+			},
+			"9": {
+				"nameId": "9",
+				"nomenclature": "prevalance: 4.6/100k"
+			},
+			"10": {
+				"nameId": "10",
+				"nomenclature": "incidence: 1.4/100k"
+			},
+			"11": {
+				"nameId": "11",
+				"nomenclature": "diagnosis"
+			},
+			"12": {
+				"nameId": "12",
+				"nomenclature": "serum IgG4 concentration"
+			},
+			"13": {
+				"nameId": "13",
+				"nomenclature": "pancreatic histology"
+			},
+			"14": {
+				"nameId": "14",
+				"nomenclature": "pancreatic imaging"
 			}
 		},
 		"idToEdgePropsMap": {
 			"1": {
 				"nameId": "1",
 				"edgeWeight": 3.2
-			},
-			"2": {
-				"nameId": "2",
-				"edgeWeight": 4.5
 			}
 		}
 	}

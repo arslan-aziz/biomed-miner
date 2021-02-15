@@ -1,0 +1,86 @@
+{
+	"name": "Sarcoma",
+	"id": 3423,
+	"graph": {
+		"adjVertices": {
+			"1": [
+				{"2": "1"},
+				{"4": "1"},
+				{"5": "1"},
+				{"6": "1"},
+				{"7": "1"}
+			],
+			"7": [
+				{"8": "1"},
+				{"9": "1"}
+			],
+			"9": [
+				{"10": "1"},
+				{"11": "1"},
+				{"12": "1"},
+				{"13": "1"},
+				{"14": "1"}
+			]
+		},
+		"idToVertexMap": {
+			"1": {
+				"nameId": "1",
+				"nomenclature": "sarcoma"
+			},
+			"2": {
+				"nameId": "2",
+				"nomenclature": "mesenchymal origin"
+			},
+			"4": {
+				"nameId": "4",
+				"nomenclature": "bone sarcoma"
+			},
+			"5": {
+				"nameId": "5",
+				"nomenclature": "soft tissue sarcoma"
+			},
+			"6": {
+				"nameId": "6",
+				"nomenclature": "survival rate: 60%-80%"
+			},
+			"7": {
+				"nameId": "7",
+				"nomenclature": "therapy"
+			},
+			"8": {
+				"nameId": "8",
+				"nomenclature": "surgical resection"
+			},
+			"9": {
+				"nameId": "9",
+				"nomenclature": "chemotherapy"
+			},
+			"10": {
+				"nameId": "10",
+				"nomenclature": "doxorubicin"
+			},
+			"11": {
+				"nameId": "11",
+				"nomenclature": "ifosfamide"
+			},
+			"12": {
+				"nameId": "12",
+				"nomenclature": "dacarbazine"
+			},
+			"13": {
+				"nameId": "13",
+				"nomenclature": "gemcitabine"
+			},
+			"14": {
+				"nameId": "14",
+				"nomenclature": "docetaxel"
+			}
+		},
+		"idToEdgePropsMap": {
+			"1": {
+				"nameId": "1",
+				"edgeWeight": 3.2
+			}
+		}
+	}
+}

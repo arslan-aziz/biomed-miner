@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import Test from './Graph';
+import Graph from './Graph';
 import NavBar from './NavBar';
 import SideBar from './SideBar';
 import defaultGraph from './data/default_graph.json';
@@ -18,7 +17,7 @@ const parseResponse = (response) => {
 
   // add vertices
   for (const val in response.data.graph.idToVertexMap) {
-    graphData.nodes.push({id: val, group: 1})
+    graphData.nodes.push({id: val, name: response.data.graph.idToVertexMap[val].nomenclature, group: 1})
   }
 
   // add edges
@@ -49,7 +48,7 @@ const selectData = (selector) => {
   .then(response => {
     let parsedData = parseResponse(response)
     ReactDOM.render(
-      <Test data={ parsedData }/>,
+      <Graph data={ parsedData }/>,
       document.getElementById('graph')
     );
   })
@@ -57,7 +56,7 @@ const selectData = (selector) => {
     console.log(error)
     // if error, display mock data
     ReactDOM.render(
-      <Test data={ defaultGraph }/>,
+      <Graph data={ defaultGraph }/>,
       document.getElementById('graph')
     );
   })
@@ -75,6 +74,6 @@ ReactDOM.render(
 
 // display mock data by default
 ReactDOM.render(
-  <Test data={ defaultGraph }/>,
+  <Graph data={ defaultGraph }/>,
   document.getElementById('graph')
 );

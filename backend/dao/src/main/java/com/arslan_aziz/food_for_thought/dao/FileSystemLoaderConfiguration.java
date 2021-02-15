@@ -43,14 +43,6 @@ public class FileSystemLoaderConfiguration implements ResourceLoaderAware {
 	@Bean(name="ProcessedArticleIdToPathMap")
 	public Map<String, String> getProcessedArticleIdToPathMap() {
 		
-//		File pathFile = new File(processedMap);
-//		if (!pathFile.exists()) {
-//			logger.info("processed map path DNE");
-//			return null;
-//		}
-		
-//		Resource resource = resourceLoader.getResource("classpath:" + processedMap);
-		// THIS WORKS!!!!!!!
 		ClassPathResource resource = new ClassPathResource("config/processedFilesMapPath.json");
 		
 		TypeReference<Map<String, String>> stringToStringMapType = new TypeReference<Map<String, String>>() {};
