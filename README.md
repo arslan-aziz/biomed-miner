@@ -1,21 +1,17 @@
-# Food for Thought
+# Biomed-Miner
 
 ## Project Overview
 ---
-We have all been in conversations before with family and friends on diet and nutrition. Discussion arises around what to eat when dealing with ailments such as diabetes or hypothyroidism, or nutrition to achieve a particular lifestyle. A quick search on Google returns thousands of blogs with too much information to parse through...
+Biomedical research strives to deepen our understanding of human biology as well as translate that understanding to novel therapies and technologies for use in the medical industry. However, the interdisciplinary nature of the field poses extra challenge to researchers, academics, and students in being able to stay abreast of the latest bodies of work across the various domains related to their research. Extensive effort is required to "keep an eye out" for tangential but potentially relevant work that could lead to the next big project or idea.
 <br><br>
-The **aim** of _Food for Thought_ is to build an accessible means to understand and digest the plethora of information on the internet related to diet and nutrition leveraging open source biomedical literature and natural language processing (NLP).
+The **aim** of _Biomed-Miner_ is to provide users an interactive and intuitive experience in exploring the plethora of information related to and branching from a particular biomedical topic leveraging the online repository of biomedical literature and natural language processing (NLP).
 <br><br>
-End state user story (abridged): Users can query the application related to particular ailments or disease and receive interpretable data visualizations to help inform their decision-making with respect to diet and nutrition.
+End state user story (abridged): Users query the application related to particular biomedical topics and receive interpretable data visualizations from which they can interactively branch and expand their exploration.
 
 ## Implementation
 ---
-### Summary
-_Food for Thought_ is a web application where the query options and data visualization are presented on the client-side (using D3 and React). 
-
-
-## Current State
-Check out a demo of the application with mock processed results here!
+### Current State
+Check out a demo of the application with mock data here!
 The backend is implemented using Spring Boot which exposes an API for the client to request processing of queries and to retrieve results. The backend currently uses Spring resource management to store data on the server's file system, and maintains a map in memory of resource uid's to file paths. The application stack is currently hosted on AWS where the client-side is statically located on an S3 bucket and the web server runs on an EC2 instance.
 
 ### Current Tooling
