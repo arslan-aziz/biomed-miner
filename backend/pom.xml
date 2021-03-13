@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   
   <modules>
-  	<module>dao</module>
+  	<module>data</module>
   	<module>service</module>
     <module>application</module>
   </modules>

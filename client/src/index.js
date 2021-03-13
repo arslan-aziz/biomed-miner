@@ -6,6 +6,7 @@ import SideBar from './SideBar';
 import defaultGraph from './data/default_graph.json';
 import axios from 'axios';
 import selectionToIdDict from './config/selection_to_id_dict';
+import net_config from './config/net_config.json'
 
 const parseResponse = (response) => {
   let graphData = {
@@ -36,7 +37,7 @@ const selectData = (selector) => {
 
   // get resource id from selection
   let articleId = selectionToIdDict[selector];
-  let url = 'http://localhost:8080/article/'.concat(articleId);
+  let url = `http://${net_config.server_ip}/article/${articleId}`
   console.log(url) 
 
   const options = {

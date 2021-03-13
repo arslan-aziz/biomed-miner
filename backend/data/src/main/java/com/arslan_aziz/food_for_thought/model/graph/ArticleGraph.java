@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.models.graph;
+package com.arslan_aziz.food_for_thought.model.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;

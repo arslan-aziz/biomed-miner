@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.dao;
+package com.arslan_aziz.food_for_thought.fs.dao;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-import com.arslan_aziz.food_for_thought.models.graph.ArticleGraph;
+import com.arslan_aziz.food_for_thought.model.graph.ArticleGraph;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,7 +33,7 @@ public class FileSystemLoaderConfiguration implements ResourceLoaderAware {
 	private ResourceLoader resourceLoader;
 	private ObjectMapper mapper;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ProcessedArticleLoader.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProcessedArticleFsDao.class);
 	
 	@Autowired
 	public FileSystemLoaderConfiguration(ObjectMapper mapper) {

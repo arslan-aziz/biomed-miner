@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.models.graph;
+package com.arslan_aziz.food_for_thought.model.graph;
 
 import java.io.IOException;
 import java.util.Iterator;

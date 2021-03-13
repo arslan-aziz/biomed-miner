@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.models.graph;
+package com.arslan_aziz.food_for_thought.model.graph;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

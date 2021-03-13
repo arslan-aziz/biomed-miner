@@ -1,6 +1,6 @@
-package com.arslan_aziz.food_for_thought.models;
+package com.arslan_aziz.food_for_thought.fs.model;
 
-import com.arslan_aziz.food_for_thought.models.graph.ArticleGraph;
+import com.arslan_aziz.food_for_thought.model.graph.ArticleGraph;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

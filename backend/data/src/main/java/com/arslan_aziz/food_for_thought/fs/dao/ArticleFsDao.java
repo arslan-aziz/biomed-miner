@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.dao;
+package com.arslan_aziz.food_for_thought.fs.dao;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,22 +14,26 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import com.arslan_aziz.food_for_thought.models.Article;
+import com.arslan_aziz.food_for_thought.fs.model.Article;
 
+/*
+ * Data access object to facilitate file system access for loading and persisting "articles" (i.e. documents).
+ */
 @Component
-public class ArticleLoader implements ResourceLoaderAware {
+public class ArticleFsDao implements ResourceLoaderAware {
 	
 	private ResourceLoader resourceLoader;
 	private Map<String, String> idToPathMap;
 	
 	@Autowired
-	public ArticleLoader(@Qualifier("RawArticleIdToPathMap") Map<String, String> idToPathMap) {
+	public ArticleFsDao(@Qualifier("RawArticleIdToPathMap") Map<String, String> idToPathMap) {
 		this.idToPathMap = idToPathMap;
 	}
 	
 	public void setResourceLoader(ResourceLoader resourceLoader) {
 		this.resourceLoader = resourceLoader;
 	}
+	
 	
 	public Article getArticleFromId(String articleId) throws IOException {
 		

@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.dao;
+package com.arslan_aziz.food_for_thought.fs.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import com.arslan_aziz.food_for_thought.models.ProcessedArticle;
+import com.arslan_aziz.food_for_thought.fs.model.ProcessedArticle;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /*
@@ -21,15 +21,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 
 @Component
-public class ProcessedArticleLoader implements ResourceLoaderAware {
+public class ProcessedArticleFsDao implements ResourceLoaderAware {
 	
 	private ObjectMapper mapper;
 	private ResourceLoader resourceLoader;
 	private Map<String, String> idToPathMap;
-	private static final Logger logger = LoggerFactory.getLogger(ProcessedArticleLoader.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProcessedArticleFsDao.class);
 	
 	@Autowired
-	public ProcessedArticleLoader(ObjectMapper mapper, @Qualifier("ProcessedArticleIdToPathMap") Map<String, String> idToPathMap) {
+	public ProcessedArticleFsDao(ObjectMapper mapper, @Qualifier("ProcessedArticleIdToPathMap") Map<String, String> idToPathMap) {
 		this.mapper = mapper;
 		this.idToPathMap = idToPathMap;
 	}

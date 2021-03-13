@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.models;
+package com.arslan_aziz.food_for_thought.fs.model;
 
 import java.net.URL;
 
