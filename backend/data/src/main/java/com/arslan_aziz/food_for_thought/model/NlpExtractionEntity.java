@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /*
@@ -12,6 +14,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="NLP_EXTRACTION")
+@NamedQueries({
+	@NamedQuery(
+		name="NlpExtractionEntity_getByQueryName",
+		query="from NlpExtractionEntity where queryName = :queryname"
+	)
+})
 public class NlpExtractionEntity {
 
 	@Id
@@ -23,6 +31,8 @@ public class NlpExtractionEntity {
 	
 	@Column(name="MOCKVALUE")
 	private Integer mockValue;
+	
+	protected NlpExtractionEntity() {};
 	
 	private NlpExtractionEntity(String queryName, Integer mockValue, Long id) {
 		this.mockValue = mockValue;

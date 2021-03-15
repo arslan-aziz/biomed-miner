@@ -84,14 +84,13 @@ public class NlpExtractionDaoImpl implements NlpExtractionDao{
 		Transaction transaction = session.beginTransaction();
 		
 		// BEGIN TRANSACTION
-		transaction.begin();
 		
-		Query selectQuery = session.createNamedQuery("SELECT * FROM NLP_EXTRACTION WHERE QUERYNAME=?");
-		selectQuery.setParameter(0,queryName);
+		Query selectQuery = session.createNamedQuery("NlpExtractionEntity_getByQueryName");
+		selectQuery.setParameter("queryname", queryName);
 		
 		NlpExtractionEntity entity = (NlpExtractionEntity) selectQuery.getResultList().stream()
 				.findFirst()
-				.get();
+				.orElse(null);
 		
 		// END TRANSACTION
 		session.flush();

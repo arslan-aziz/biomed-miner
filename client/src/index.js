@@ -32,6 +32,11 @@ const parseResponse = (response) => {
   return graphData;
 }
 
+const openQuery = (query) => {
+  console.log(query)
+
+}
+
 const selectData = (selector) => {
   console.log(selector);
 
@@ -69,7 +74,7 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
-  <SideBar selectData={ selectData }/>,
+  <SideBar selectData={ selectData } queryData={ openQuery }/>,
   document.getElementById('sidebar')
 );
 

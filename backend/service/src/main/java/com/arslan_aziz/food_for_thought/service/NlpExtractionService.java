@@ -65,7 +65,7 @@ public class NlpExtractionService {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		/*
 		// preprocess files using Python service
 		HttpRequest prepServiceRequest = HttpRequest.newBuilder()
 				.uri(URI.create("localhost:8080"))
@@ -77,9 +77,11 @@ public class NlpExtractionService {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
 		
 		// entity extraction from text (analytics)
-		int contentLength = prepServiceResponse.body().length();
+//		int contentLength = prepServiceResponse.body().length();
+		int contentLength = 44;
 		
 		// create JPA entity and persist to database
 		entity = new NlpExtractionEntity.NlpExtractionEntityBuilder().setQueryName(keyword).setMockValue(contentLength).build();
@@ -93,7 +95,7 @@ public class NlpExtractionService {
 			return null;
 		}
 		else {
-			return new NlpExtractionDto();	
+			return new NlpExtractionDto(nlpExtractionEntity.getQueryName(), nlpExtractionEntity.getMockValue());	
 		}
 	}
 	

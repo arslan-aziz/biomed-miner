@@ -2,8 +2,8 @@ import React from 'react';
 
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-
-import backdrop from './static/img/backdrop.jpeg';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 class SideBar extends React.Component {
 
@@ -18,13 +18,24 @@ class SideBar extends React.Component {
                     Biomed-Miner uses Natural Language Processing to collect and visualize biomedical research 
                     so you can stay on the cutting edge of your field.
                 </div>
-                <DropdownButton id="demo-button" title="Select Article" onSelect={(evt) => {
-                    this.props.selectData(evt)
-                }}>
-                    <Dropdown.Item eventKey="1">Article 1</Dropdown.Item>
-                    <Dropdown.Item eventKey="2">Article 2</Dropdown.Item>
-                    <Dropdown.Item eventKey="3">Article 3</Dropdown.Item>
-                </DropdownButton>
+                <div style={{marginBottom: '1em'}}>
+                    <DropdownButton id="demo-button" title="Select Article" onSelect={(evt) => {
+                        this.props.selectData(evt)
+                    }}>
+                        <Dropdown.Item eventKey="1">Article 1</Dropdown.Item>
+                        <Dropdown.Item eventKey="2">Article 2</Dropdown.Item>
+                        <Dropdown.Item eventKey="3">Article 3</Dropdown.Item>
+                    </DropdownButton>
+                </div>
+                <Form>
+                    <Form.Group controlId="formQuery">
+                        <Form.Label>Search Query</Form.Label>
+                        <Form.Control/>
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onChange={this.props.handleClick()}>
+                        Search
+                    </Button>
+                </Form>
             </div>
         );
     }

@@ -37,7 +37,7 @@ public class JpaConfig {
 	private final Properties hibernateProperties() {
 		Properties hibernateProperties = new Properties();
 		hibernateProperties.setProperty("hibernate.hbm2dd.auto", "create-drop");
-		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgresDialect");
+		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		
 		return hibernateProperties;
 	}

@@ -11,23 +11,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.arslan_aziz.food_for_thought.service.NlpExtractionService;
-import com.arslan_aziz.food_for_thought.service.QueryHandler;
 import com.arslan_aziz.food_for_thought.service.dto.NlpExtractionDto;
 
 @CrossOrigin(origins="*", allowedHeaders="*")
 @RestController
-public class QueryController {
+public class NlpExtractionController {
 	
 	private NlpExtractionService nlpExtractionService;
 	
 	@Autowired
-	public QueryController(QueryHandler queryHandler, NlpExtractionService nlpExtractionService) {
+	public NlpExtractionController(NlpExtractionService nlpExtractionService) {
 		this.nlpExtractionService = nlpExtractionService;
 	}
 	
 	@PostMapping(value="/nlpextraction", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> requestSearch(@RequestParam("query") String query) {
-		String queryKey = QueryHandler.normalizeQuery(query);
+		String queryKey = NlpExtractionService.normalizeQuery(query);
 
 		nlpExtractionService.createNlpExtraction(queryKey);
 
