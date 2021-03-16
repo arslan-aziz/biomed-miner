@@ -32,9 +32,25 @@ const parseResponse = (response) => {
   return graphData;
 }
 
-const openQuery = (query) => {
-  console.log(query)
+const openQuery = (evt) => {
+  evt.preventDefault()
+  let queryValue = evt.target[0].value
+  console.log(queryValue)
 
+  let url = 'http://127.0.0.1:8080/nlpextraction'
+  const options = {
+    url: url,
+    method: 'GET',
+    params: { querykey: queryValue }
+  }
+
+  axios(options)
+  .then(response => {
+    console.log(response)
+  })
+  .catch(error => {
+    console.log(error)
+  })
 }
 
 const selectData = (selector) => {

@@ -1,5 +1,7 @@
 package com.arslan_aziz.food_for_thought.application;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,7 @@ import com.arslan_aziz.food_for_thought.service.dto.NlpExtractionDto;
 public class NlpExtractionController {
 	
 	private NlpExtractionService nlpExtractionService;
+	private Logger logger = LoggerFactory.getLogger(NlpExtractionController.class);
 	
 	@Autowired
 	public NlpExtractionController(NlpExtractionService nlpExtractionService) {
@@ -38,6 +41,7 @@ public class NlpExtractionController {
 	public ResponseEntity<?> getSearchResult(@RequestParam("querykey") String querykey) {
 		NlpExtractionDto nlpExtractionDto = nlpExtractionService.getNlpExtractionDtoByKey(querykey);
 		if (nlpExtractionDto == null) {
+			logger.info("Entity " + querykey + " not found");
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 		else {
