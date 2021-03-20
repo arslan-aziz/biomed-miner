@@ -31,6 +31,7 @@ const Graph = (props) => {
               const bckgDimensions = node.__bckgDimensions;
               bckgDimensions && ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
             }}
+            onNodeClick={(clickEvent) => props.clickHandler(clickEvent)}
           />
         </div>
     )

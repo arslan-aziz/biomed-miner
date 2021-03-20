@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -6,8 +6,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 function SideBar(props) {
-
-    const [formData, setFormData] = useState("")
 
     return (
         <div style={sidebarStyle}>
@@ -21,17 +19,17 @@ function SideBar(props) {
             </div>
             <div style={{marginBottom: '1em'}}>
                 <DropdownButton id="demo-button" title="Select Article" onSelect={(evt) => {
-                    props.selectData(evt)
+                    props.selectHandler(evt)
                 }}>
                     <Dropdown.Item eventKey="1">Article 1</Dropdown.Item>
                     <Dropdown.Item eventKey="2">Article 2</Dropdown.Item>
                     <Dropdown.Item eventKey="3">Article 3</Dropdown.Item>
                 </DropdownButton>
             </div>
-            <Form onSubmit={(evt) => props.queryData(evt)}>
+            <Form onSubmit={(evt) => props.searchHandler(evt)}>
                 <Form.Group controlId="formQuery">
                     <Form.Label>Search Query</Form.Label>
-                    <Form.Control onChange={value => setFormData(value)}/>
+                    <Form.Control />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Search
