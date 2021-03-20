@@ -28,7 +28,7 @@ public class NlpExtractionController {
 	}
 	
 	@PostMapping(value="/nlpextraction", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> requestSearch(@RequestParam("query") String query) {
+	public ResponseEntity<?> requestSearch(@RequestParam("querykey") String query) {
 		String queryKey = NlpExtractionService.normalizeQuery(query);
 
 		nlpExtractionService.createNlpExtraction(queryKey);

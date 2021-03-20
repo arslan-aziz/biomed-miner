@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 @SpringBootApplication(scanBasePackages = "com.arslan_aziz.food_for_thought")
-@EnableAsync
 public class Application {
 
   public static void main(String[] args) {

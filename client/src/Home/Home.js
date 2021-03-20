@@ -23,18 +23,15 @@ const Home = () => {
 
     const delay = (ms) => new Promise(resolved => setTimeout(resolved, ms))
 
-    const poll = (fn, retries=Infinity, timeoutBetween=1000) => {
+    const poll = (fn, retries = Infinity, timeoutBetween = 1000) => {
         return Promise.resolve()
             .then(fn)
             // on status 4xx try again
             .catch(function retry(err) {
-                if(retries-- > 0) {
+                if (retries-- > 0) {
                     return delay(timeoutBetween)
                         .then(fn)
                         .catch(retry);
-                }
-                else {
-                    throw err;
                 }
             })
     }
@@ -48,19 +45,21 @@ const Home = () => {
         const postQueryOptions = {
             url: url,
             method: 'POST',
-            params: { query: queryValue }
+            params: { querykey: queryValue }
         }
         const getQueryOptions = {
             url: url,
-            method: 'GET'
+            method: 'GET',
+            params: { querykey: "" }
         }
 
         axios(postQueryOptions)
             .then(response => {
                 console.log(response)
                 // load get request with normalized query key
-                getQueryOptions["params"] = { querykey: response.querykey }
-                poll(() => axios(getQueryOptions).then(setGraphData(parseResponse)), 15, 100)
+                getQueryOptions.params.querykey = response.data
+                console.log(getQueryOptions)
+                poll(() => axios(getQueryOptions).then(response => console.log(response)), 5, 100)
             })
             .catch(error => {
                 console.log(error)
@@ -92,24 +91,24 @@ const Home = () => {
         let nodeId = clickEvent.id
         let queryValue = clickEvent.name
         console.log(queryValue)
-        
+
         let url = 'http://127.0.0.1:8080/nlpextraction'
         const options = {
             url: url,
             method: 'GET',
             params: { querykey: queryValue }
         }
-        
+
         axios(options)
-        .then(response => {
-            console.log(response)
-            let graphDataInc = parseResponse(response)
-            // link new graph to existing graph on query node
-            setGraphData(mergeGraphs(graphData, graphDataInc, nodeId))
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(response => {
+                console.log(response)
+                let graphDataInc = parseResponse(response)
+                // link new graph to existing graph on query node
+                setGraphData(mergeGraphs(graphData, graphDataInc, nodeId))
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     return (

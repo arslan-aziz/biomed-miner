@@ -5,6 +5,7 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,7 @@ import com.arslan_aziz.food_for_thought.model.NlpExtractionEntity;
 public class NlpExtractionDaoImpl implements NlpExtractionDao{
 	
 	private SessionFactory sessionFactory;
+	private Logger logger = Logger.getLogger(NlpExtractionDaoImpl.class);
 	
 	@Autowired
 	public NlpExtractionDaoImpl(SessionFactory sessionFactory) {
@@ -23,18 +25,19 @@ public class NlpExtractionDaoImpl implements NlpExtractionDao{
 	@Override
 	public void addNlpExtraction(NlpExtractionEntity entity) {
 		// TODO: Consider using AOP to stay DRY!
+		logger.info("Saving entity" + entity.toString());
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
 		// BEGIN TRANSACTION
-		transaction.begin();
 
 		session.save(entity);
 		
 		// END TRANSACTION
+		transaction.commit();
 		session.flush();
 		session.clear();
-		transaction.commit();
+		
 		
 		session.close();
 		
@@ -46,7 +49,6 @@ public class NlpExtractionDaoImpl implements NlpExtractionDao{
 		Transaction transaction = session.beginTransaction();
 		
 		// BEGIN TRANSACTION
-		transaction.begin();
 		
 		NlpExtractionEntity entity = (NlpExtractionEntity) session.get(NlpExtractionEntity.class, id);
 		
@@ -66,7 +68,6 @@ public class NlpExtractionDaoImpl implements NlpExtractionDao{
 		Transaction transaction = session.beginTransaction();
 		
 		// BEGIN TRANSACTION
-		transaction.begin();
 		
 		session.delete(new NlpExtractionEntity.NlpExtractionEntityBuilder().setId(id).build());
 		

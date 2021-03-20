@@ -5,7 +5,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.concurrent.CompletableFuture;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ public class NlpExtractionService {
 	
 	private HttpClient httpClient;
 	private NlpExtractionDao nlpExtractionDao;
+	private Logger logger = LoggerFactory.getLogger(NlpExtractionService.class);
 	
 	@Autowired
 	public NlpExtractionService(NlpExtractionDao nlpExtractionDao, HttpClient httpClient) {
@@ -45,15 +49,17 @@ public class NlpExtractionService {
 	
 	// handle query processing and store result in db
 	@Async
-	public int createNlpExtraction(String keyword) {
+	public CompletableFuture<Integer> createNlpExtraction(String keyword) {
+		logger.info("Received service query " + keyword);
 		// normalize query
 		keyword = NlpExtractionService.normalizeQuery(keyword);
 		// check database
 		NlpExtractionEntity entity = nlpExtractionDao.getNlpExtractionEntityByQueryName(keyword);
 		if (entity != null) {
-			return 0;
+			return CompletableFuture.completedFuture(-1);
 		}
 		
+		logger.info("Generating api call");
 		// generate API call
 		HttpRequest ncbiRequest = HttpRequest.newBuilder()
 				.uri(URI.create("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pmc"))
@@ -83,11 +89,12 @@ public class NlpExtractionService {
 //		int contentLength = prepServiceResponse.body().length();
 		int contentLength = 44;
 		
+		logger.info("Loading into database");
 		// create JPA entity and persist to database
 		entity = new NlpExtractionEntity.NlpExtractionEntityBuilder().setQueryName(keyword).setMockValue(contentLength).build();
 		nlpExtractionDao.addNlpExtraction(entity);
 		
-		return 0;
+		return CompletableFuture.completedFuture(0);
 	}
 	
 	private static NlpExtractionDto convertEntityToDto(NlpExtractionEntity nlpExtractionEntity) {

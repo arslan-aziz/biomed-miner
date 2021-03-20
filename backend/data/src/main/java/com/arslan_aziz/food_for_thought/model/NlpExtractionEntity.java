@@ -23,7 +23,8 @@ import javax.persistence.Table;
 public class NlpExtractionEntity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private Long id;
 	
 	@Column(name="QUERYNAME", length=50, nullable=false, unique=false)
@@ -78,5 +79,10 @@ public class NlpExtractionEntity {
 		public NlpExtractionEntity build() {
 			return new NlpExtractionEntity(queryName, mockValue, id);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return queryName + mockValue.toString();
 	}
 }
