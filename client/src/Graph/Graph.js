@@ -1,6 +1,6 @@
 import React from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
-import './App.css';
+import '../styles/App.css';
 
 const Graph = (props) => {
     return (
