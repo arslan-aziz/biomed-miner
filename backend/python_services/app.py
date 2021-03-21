@@ -10,14 +10,17 @@ app = Flask(__name__)
 
 @app.route('/pubmed_parser', methods=['POST'])
 def parse_pubmed_xml():
-    xml = request.get_data()
+    xml = request.data
     with tempfile.NamedTemporaryFile(suffix='.xml') as temp:
         temp.write(xml)
-        parsed_xml = pubmed_parser.parse_pubmed_paragraph(temp.name)
-        parsed_metadata = pubmed_parser.parse_pubmed_xml(temp.name)
+        parsed_xml = pp.parse_pubmed_paragraph(temp.name)
+        parsed_metadata = pp.parse_pubmed_xml(temp.name)
         parsed_xml = [content['text'] for content in parsed_xml]
 
     return ({
         'metadata': parsed_metadata,
         'content': parsed_xml
     })
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
