@@ -35,7 +35,6 @@ public class NlpExtractionDaoImpl implements NlpExtractionDao{
 		
 		// END TRANSACTION
 		transaction.commit();
-		session.flush();
 		session.clear();
 		
 		

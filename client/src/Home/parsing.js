@@ -1,20 +1,18 @@
-const parseResponse = (response) => {
+const parseResponse = (entityGraph) => {
     let graphData = {
         nodes: [],
         links: []
     }
 
-    console.log(response.data.graph.idToVertexMap)
-
     // add vertices
-    for (const val in response.data.graph.idToVertexMap) {
-        graphData.nodes.push({id: val, name: response.data.graph.idToVertexMap[val].nomenclature, group: 1})
+    for (const vertexVal in entityGraph.idToVertexMap) {
+        graphData.nodes.push({id: entityGraph.idToVertexMap[vertexVal]["nameId"], name: entityGraph.idToVertexMap[vertexVal]["nomenclature"], group: 1})
     }
 
     // add edges
-    for (const val in response.data.graph.adjVertices) {
+    for (const val in entityGraph.adjVertices) {
         // add corresponding edges
-        response.data.graph.adjVertices[val].forEach(other => {
+        entityGraph.adjVertices[val].forEach(other => {
         graphData.links.push({source: val, target: Object.keys(other)[0], value: 1})
         })
     }

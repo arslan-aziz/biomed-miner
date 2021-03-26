@@ -4,12 +4,14 @@ public class NlpExtractionDto {
 
 	private String queryName;
 	private Integer mockValue;
+	private String entityGraph;
 	
 	public NlpExtractionDto() {};
 	
-	public NlpExtractionDto(String queryName, Integer mockValue) {
+	public NlpExtractionDto(String queryName, Integer mockValue, String entityGraph) {
 		this.queryName = queryName;
 		this.mockValue = mockValue;
+		this.entityGraph = entityGraph;
 	}
 
 	public String getQueryName() {
@@ -26,5 +28,13 @@ public class NlpExtractionDto {
 
 	public void setMockValue(Integer mockValue) {
 		this.mockValue = mockValue;
+	}
+	
+	public String getEntityGraph() {
+		return entityGraph;
+	}
+	
+	public void setEntityGraph(String entityGraph) {
+		this.entityGraph = entityGraph;
 	}
 }

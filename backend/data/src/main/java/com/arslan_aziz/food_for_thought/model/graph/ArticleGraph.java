@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class ArticleGraph {
 	
-	// maybe use a list of tuples instead to represent edges
 	private Map<String, List<Map<String, String>>> adjVertices;
 	private Map<String, ArticleGraphVertex> idToVertexMap;
 	private Map<String, ArticleGraphEdgeProperties> idToEdgePropsMap;
@@ -37,8 +37,6 @@ public class ArticleGraph {
 			adjVertices.get(v1.getNameId()).add(edgeMap);
 			idToEdgePropsMap.put(edgeProps.getNameId(), edgeProps);
 			
-			
-			
 			// add undirected edge from v2 to v1
 			Map<String, String> edgeMapOther = new HashMap<String, String>();
 			edgeMapOther.put(v1.getNameId(), edgeProps.getNameId());
@@ -51,6 +49,10 @@ public class ArticleGraph {
 		adjVertices.get(v1.getNameId()).removeIf(map -> map.containsKey(v2.getNameId()));
 		// remove undirected edge v1 <--> v2 from v2
 		adjVertices.get(v2.getNameId()).removeIf(map -> map.containsKey(v1.getNameId()));
+	}
+	
+	public Optional<ArticleGraphVertex> getVertex(String nameId) {
+			return Optional.ofNullable(idToVertexMap.getOrDefault(nameId, null));
 	}
 	
 	List<Map<String, String>> getAdjVertices(ArticleGraphVertex v) {

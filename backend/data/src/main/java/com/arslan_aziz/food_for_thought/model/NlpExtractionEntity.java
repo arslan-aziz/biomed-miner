@@ -30,14 +30,18 @@ public class NlpExtractionEntity {
 	@Column(name="QUERYNAME", length=50, nullable=false, unique=false)
 	private String queryName;
 	
-	@Column(name="MOCKVALUE")
-	private Integer mockValue;
+	@Column(name="CONTENTLENGTH")
+	private Integer contentLength;
+	
+	@Column(name="ENTITYGRAPH")
+	private String entityGraph;
 	
 	protected NlpExtractionEntity() {};
 	
-	private NlpExtractionEntity(String queryName, Integer mockValue, Long id) {
-		this.mockValue = mockValue;
+	private NlpExtractionEntity(String queryName, Integer contentLength, String entityGraph, Long id) {
+		this.contentLength = contentLength;
 		this.queryName = queryName;
+		this.entityGraph = entityGraph;
 		if (id != -1L) {
 			this.id = id;
 		}
@@ -51,13 +55,18 @@ public class NlpExtractionEntity {
 		return queryName;
 	}
 	
-	public Integer getMockValue() {
-		return mockValue;
+	public Integer getContentLength() {
+		return contentLength;
+	}
+	
+	public String getEntityGraph() {
+		return entityGraph;
 	}
 	
 	public static class NlpExtractionEntityBuilder {
 		private String queryName;
-		private Integer mockValue;
+		private Integer contentLength;
+		private String entityGraph;
 		private Long id = -1L;
 		
 		public NlpExtractionEntityBuilder setQueryName(final String queryName) {
@@ -65,8 +74,13 @@ public class NlpExtractionEntity {
 			return this;
 		}
 		
-		public NlpExtractionEntityBuilder setMockValue(final Integer mockValue) {
-			this.mockValue = mockValue;
+		public NlpExtractionEntityBuilder setContentLength(final Integer contentLength) {
+			this.contentLength = contentLength;
+			return this;
+		}
+		
+		public NlpExtractionEntityBuilder setEntityGraph(final String entityGraph) {
+			this.entityGraph = entityGraph;
 			return this;
 		}
 		
@@ -77,12 +91,12 @@ public class NlpExtractionEntity {
 		}
 		
 		public NlpExtractionEntity build() {
-			return new NlpExtractionEntity(queryName, mockValue, id);
+			return new NlpExtractionEntity(queryName, contentLength, entityGraph, id);
 		}
 	}
 	
 	@Override
 	public String toString() {
-		return queryName + mockValue.toString();
+		return queryName + contentLength.toString();
 	}
 }

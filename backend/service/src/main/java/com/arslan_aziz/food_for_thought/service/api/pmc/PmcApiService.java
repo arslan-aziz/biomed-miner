@@ -11,15 +11,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -34,12 +38,10 @@ public class PmcApiService {
 	 * Service to interface w/ NCBI PMC API and parse response.
 	 */
 	
-	private final HttpClient httpClient;
 	private final HttpMethods httpMethods;
 	
 	@Autowired
-	public PmcApiService(HttpClient httpClient, HttpMethods httpMethods) {
-		this.httpClient = httpClient;
+	public PmcApiService(HttpMethods httpMethods) {
 		this.httpMethods = httpMethods;
 	}
 	
@@ -61,7 +63,10 @@ public class PmcApiService {
 		
 		// parse response XML
 		Document doc = null;
-		doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response.body());	
+		doc = DocumentBuilderFactory
+				.newInstance()
+				.newDocumentBuilder()
+				.parse(new InputSource(new StringReader(response.body())));	
 		
 		doc.getDocumentElement().normalize();
 		
@@ -69,7 +74,7 @@ public class PmcApiService {
 		NodeList idNodeList = doc.getElementsByTagName("Id");
 		int[] articleIdArray = new int[idNodeList.getLength()];
 		for (int i=0; i < idNodeList.getLength(); i++) {
-			articleIdArray[i]  = Integer.parseInt(idNodeList.item(i).getNodeValue());
+			articleIdArray[i]  = Integer.parseInt(idNodeList.item(i).getTextContent());
 		}
 		
 		// create data transfer object

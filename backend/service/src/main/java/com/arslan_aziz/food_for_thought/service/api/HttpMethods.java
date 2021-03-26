@@ -47,7 +47,7 @@ public class HttpMethods {
 		if (queryParams.size() > 0) {
 			uriWithParamsBuilder.append("?");
 			for(Map.Entry<String, String> entry: queryParams.entrySet()) {
-				uri += entry.getKey() + "=" + entry.getValue() + "&";
+				uriWithParamsBuilder.append(entry.getKey() + "=" + entry.getValue() + "&");
 			}
 			uriWithParamsBuilder.deleteCharAt(uriWithParamsBuilder.length() - 1);
 		}

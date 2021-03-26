@@ -31,7 +31,10 @@ const Home = () => {
                 if (retries-- > 0) {
                     return delay(timeoutBetween)
                         .then(fn)
-                        .catch(retry);
+                        .catch(error => {
+                            console.log(error)
+                            retry()
+                        });
                 }
             })
     }
@@ -59,7 +62,13 @@ const Home = () => {
                 // load get request with normalized query key
                 getQueryOptions.params.querykey = response.data
                 console.log(getQueryOptions)
-                poll(() => axios(getQueryOptions).then(response => console.log(response)), 5, 100)
+                poll(() => axios(getQueryOptions).then(
+                    response => {
+                        let parsedEntityGraph = JSON.parse(response.data.entityGraph)
+                        console.log(parsedEntityGraph)
+                        setGraphData(parseResponse(parsedEntityGraph))
+                    }
+                ), 5, 1000)
             })
             .catch(error => {
                 console.log(error)

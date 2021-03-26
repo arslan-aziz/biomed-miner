@@ -1,5 +1,9 @@
 package com.arslan_aziz.food_for_thought.application;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
 
 import com.arslan_aziz.food_for_thought.service.NlpExtractionService;
 import com.arslan_aziz.food_for_thought.service.dto.NlpExtractionDto;
@@ -28,7 +33,7 @@ public class NlpExtractionController {
 	}
 	
 	@PostMapping(value="/nlpextraction", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> requestSearch(@RequestParam("querykey") String query) {
+	public ResponseEntity<?> requestSearch(@RequestParam("querykey") String query) throws IOException, InterruptedException, SAXException, ParserConfigurationException {
 		String queryKey = NlpExtractionService.normalizeQuery(query);
 
 		nlpExtractionService.createNlpExtraction(queryKey);
