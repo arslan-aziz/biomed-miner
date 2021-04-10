@@ -58,7 +58,7 @@ public class NlpExtractionService {
 	
 	// handle query processing and store result in db
 	@Async
-	public void createNlpExtraction(String keyword, Integer queryNodeId, Integer maxNodeId)
+	public void createNlpExtraction(String keyword, Integer queryNodeId)
 			throws IOException, InterruptedException, SAXException, ParserConfigurationException {
 		logger.info("Received service query " + keyword + " with node id " + queryNodeId);
 		
@@ -96,7 +96,7 @@ public class NlpExtractionService {
 			.putVertex(
 				new ArticleGraphVertex
 				.ArticleGraphVertexBuilder()
-				.withNameId(maxNodeId + 1)
+				.withNameId("This is a new node.".hashCode())
 				.withNomenclature("This is a new node.")
 				.build());
 			
@@ -113,7 +113,7 @@ public class NlpExtractionService {
 			articleGraph
 				.addEdge(
 					articleGraph.getVertex(queryNodeId).get(),
-					articleGraph.getVertex(maxNodeId + 1).get(),
+					articleGraph.getVertex("This is a new node.".hashCode()).get(),
 					new ArticleGraphEdgeProperties
 						.ArticleGraphEdgePropertiesBuilder()
 						.withNameId(1)

@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.fs.dao;
+package com.arslan_aziz.food_for_thought.dao.config;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+import com.arslan_aziz.food_for_thought.fs.dao.ProcessedArticleFsDao;
 import com.arslan_aziz.food_for_thought.model.graph.ArticleGraph;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

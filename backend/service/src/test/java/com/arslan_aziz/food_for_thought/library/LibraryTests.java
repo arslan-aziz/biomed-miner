@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.arslan_aziz.food_for_thought.service.ArticleProcessor;
-
 @SpringBootTest()
 public class LibraryTests {
 

@@ -1,9 +1,10 @@
-package com.arslan_aziz.food_for_thought.fs.model;
+package com.arslan_aziz.food_for_thought.model;
 
 import java.net.URL;
 
 /*
  * Represents article document and metadata.
+ * TODO: add jpa annotations
  */
 public class Article {
 	
