@@ -46,7 +46,8 @@ const Home = () => {
             method: 'POST',
             params: {
                 querykey: queryValue,
-                querynodeid: queryId
+                querynodeid: queryId,
+                maxnodeid: graphData.nodes.length
             }
         }
         const getQueryOptions = {
@@ -65,12 +66,13 @@ const Home = () => {
                     response => {
                         // TODO: why is the graph object referred to as "entityGraph" in this specific endpoint?
                         let parsedEntityGraph = JSON.parse(response.data.entityGraph)
-                        console.log(parsedEntityGraph)
+                        let temp = parseResponse(parsedEntityGraph)
+                        console.log(temp)
                         if (doMerge) {
-                            setGraphData(mergeGraphs(graphData, parseResponse(parsedEntityGraph)))
+                            setGraphData(mergeGraphs(graphData, temp))
                         }
                         else {
-                            setGraphData(parseResponse(parsedEntityGraph))
+                            setGraphData(temp)
                         }
                     }
                 ), 5, 1000)
@@ -95,26 +97,6 @@ const Home = () => {
         console.log(queryValue)
 
         nlpExtractionRequest(queryValue, nodeId, true)
-
-        /*
-        let url = 'http://127.0.0.1:8080/nlpextraction'
-        const options = {
-            url: url,
-            method: 'GET',
-            params: { querykey: queryValue }
-        }
-
-        axios(options)
-            .then(response => {
-                console.log(response)
-                let graphDataInc = parseResponse(response.data.graph)
-                // link new graph to existing graph on query node
-                setGraphData(mergeGraphs(graphData, graphDataInc))
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        */
     }
 
     const selectHandler = (selector) => {
@@ -133,7 +115,9 @@ const Home = () => {
         axios(options)
             .then(response => {
                 console.log(response)
-                setGraphData(parseResponse(response.data.graph))
+                let temp = parseResponse(response.data.graph)
+                console.log(temp)
+                setGraphData(temp)
             })
             .catch(error => {
                 console.log(error)

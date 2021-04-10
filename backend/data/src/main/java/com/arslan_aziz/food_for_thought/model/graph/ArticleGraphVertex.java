@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(builder = ArticleGraphVertex.ArticleGraphVertexBuilder.class)
 public class ArticleGraphVertex {
 	
-	private final String nameId;
+	private final Integer nameId;
 	private final String nomenclature;
 	
 	private ArticleGraphVertex(ArticleGraphVertexBuilder builder) {
@@ -16,7 +16,7 @@ public class ArticleGraphVertex {
 		this.nomenclature = builder.nomenclature;
 	}
 	
-	public String getNameId() {
+	public Integer getNameId() {
 		return nameId;
 	}
 	public String getNomenclature() {
@@ -24,11 +24,11 @@ public class ArticleGraphVertex {
 	}
 	
 	public static class ArticleGraphVertexBuilder {
-		private String nameId;
+		private Integer nameId;
 		private String nomenclature;
 		
 		public ArticleGraphVertexBuilder() { }
-		public ArticleGraphVertexBuilder withNameId(String nameId) {
+		public ArticleGraphVertexBuilder withNameId(Integer nameId) {
 			this.nameId = nameId;
 			return this;
 		}

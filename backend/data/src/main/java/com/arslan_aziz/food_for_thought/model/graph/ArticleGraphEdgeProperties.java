@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(builder = ArticleGraphEdgeProperties.ArticleGraphEdgePropertiesBuilder.class)
 public class ArticleGraphEdgeProperties {
 
-	private final String nameId;
+	private final Integer nameId;
 	private final double edgeWeight;
 	
 	private ArticleGraphEdgeProperties(ArticleGraphEdgePropertiesBuilder builder) {
@@ -15,7 +15,7 @@ public class ArticleGraphEdgeProperties {
 		this.edgeWeight = builder.edgeWeight;
 	}
 	
-	public String getNameId() {
+	public Integer getNameId() {
 		return nameId;
 	}
 	public double getEdgeWeight() {
@@ -24,12 +24,12 @@ public class ArticleGraphEdgeProperties {
 	
 	public static class ArticleGraphEdgePropertiesBuilder {
 		
-		private String nameId;
+		private Integer nameId;
 		private double edgeWeight;
 		
 		public ArticleGraphEdgePropertiesBuilder() {}
 		
-		public ArticleGraphEdgePropertiesBuilder withNameId(String nameId) {
+		public ArticleGraphEdgePropertiesBuilder withNameId(Integer nameId) {
 			this.nameId = nameId;
 			return this;
 		}

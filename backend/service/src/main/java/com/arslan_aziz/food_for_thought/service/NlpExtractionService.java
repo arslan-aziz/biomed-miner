@@ -58,8 +58,10 @@ public class NlpExtractionService {
 	
 	// handle query processing and store result in db
 	@Async
-	public void createNlpExtraction(String keyword, String queryNodeId) throws IOException, InterruptedException, SAXException, ParserConfigurationException {
+	public void createNlpExtraction(String keyword, Integer queryNodeId, Integer maxNodeId)
+			throws IOException, InterruptedException, SAXException, ParserConfigurationException {
 		logger.info("Received service query " + keyword + " with node id " + queryNodeId);
+		
 		// normalize query
 		keyword = NlpExtractionService.normalizeQuery(keyword);
 		
@@ -75,13 +77,47 @@ public class NlpExtractionService {
 		
 		int contentLength = firstPmcEfetchResponse.getContent().length();
 		
-		// MOCK ENTITY EXTRACTION AND GRAPH GENERATION
-		ArticleGraph articleGraph = fsArticleLoader.getProcessedArticleFromId("1234").getGraph();
+		/*
+		 * BEGIN MOCK ENTITY EXTRACTION AND GRAPH GENERATION
+		 * IF queryNodeId invalid, then search was performed. Return a new mock graph.
+		 * ELSE, generate graph extension
+		 */
 		
-		// if event has a valid queryNodeId, then put the current vertex and link to a vertex in the graph
-		if (queryNodeId != "-1") {
-			articleGraph.putVertex(new ArticleGraphVertex.ArticleGraphVertexBuilder().withNameId(queryNodeId).withNomenclature(keyword).build());
-			articleGraph.addEdge(articleGraph.getVertex("1").get(), articleGraph.getVertex(queryNodeId).get(), new ArticleGraphEdgeProperties.ArticleGraphEdgePropertiesBuilder().withNameId("testedge").build());	
+		ArticleGraph articleGraph;
+		
+		if (queryNodeId == -1) {
+			articleGraph = fsArticleLoader.getProcessedArticleFromId("1234").getGraph();
+		}
+		else {
+			articleGraph = new ArticleGraph();
+			
+			// add new node to current graph
+			articleGraph
+			.putVertex(
+				new ArticleGraphVertex
+				.ArticleGraphVertexBuilder()
+				.withNameId(maxNodeId + 1)
+				.withNomenclature("This is a new node.")
+				.build());
+			
+			// add query node to current graph so it can be linked with new node
+			articleGraph
+				.putVertex(
+					new ArticleGraphVertex
+					.ArticleGraphVertexBuilder()
+					.withNameId(queryNodeId)
+					.withNomenclature(keyword)
+					.build());
+			
+			// add edge between query node and new node
+			articleGraph
+				.addEdge(
+					articleGraph.getVertex(queryNodeId).get(),
+					articleGraph.getVertex(maxNodeId + 1).get(),
+					new ArticleGraphEdgeProperties
+						.ArticleGraphEdgePropertiesBuilder()
+						.withNameId(1)
+						.build());	
 		}
 		
 		// serialize graph to json string

@@ -11,16 +11,18 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class ArticleGraph {
 	
-	private Map<String, List<Map<String, String>>> adjVertices;
-	private Map<String, ArticleGraphVertex> idToVertexMap;
-	private Map<String, ArticleGraphEdgeProperties> idToEdgePropsMap;
+	private Map<Integer, List<Map<Integer, Integer>>> adjVertices;
+	private Map<Integer, ArticleGraphVertex> idToVertexMap;
+	private Map<Integer, ArticleGraphEdgeProperties> idToEdgePropsMap;
 	
 	public ArticleGraph() {
-		adjVertices = new HashMap<String, List<Map<String, String>>>();
+		adjVertices = new HashMap<Integer, List<Map<Integer, Integer>>>();
+		idToVertexMap = new HashMap<Integer, ArticleGraphVertex>();
+		idToEdgePropsMap = new HashMap<Integer, ArticleGraphEdgeProperties>();
 	}
 	
 	public void putVertex(ArticleGraphVertex articleGraphVertex) {
-		adjVertices.putIfAbsent(articleGraphVertex.getNameId(), new ArrayList<Map<String, String>>());
+		adjVertices.putIfAbsent(articleGraphVertex.getNameId(), new ArrayList<Map<Integer, Integer>>());
 		idToVertexMap.putIfAbsent(articleGraphVertex.getNameId(), articleGraphVertex);
 	}
 	
@@ -32,13 +34,13 @@ public class ArticleGraph {
 	public void addEdge(ArticleGraphVertex v1, ArticleGraphVertex v2, ArticleGraphEdgeProperties edgeProps) {
 		if (adjVertices.containsKey(v1.getNameId()) && adjVertices.containsKey(v2.getNameId())) {
 			// add undirected edge from v1 to v2
-			Map<String, String> edgeMap = new HashMap<String, String>();
+			Map<Integer, Integer> edgeMap = new HashMap<Integer, Integer>();
 			edgeMap.put(v2.getNameId(), edgeProps.getNameId());
 			adjVertices.get(v1.getNameId()).add(edgeMap);
 			idToEdgePropsMap.put(edgeProps.getNameId(), edgeProps);
 			
 			// add undirected edge from v2 to v1
-			Map<String, String> edgeMapOther = new HashMap<String, String>();
+			Map<Integer, Integer> edgeMapOther = new HashMap<Integer, Integer>();
 			edgeMapOther.put(v1.getNameId(), edgeProps.getNameId());
 			adjVertices.get(v2.getNameId()).add(edgeMapOther);
 		}
@@ -51,11 +53,11 @@ public class ArticleGraph {
 		adjVertices.get(v2.getNameId()).removeIf(map -> map.containsKey(v1.getNameId()));
 	}
 	
-	public Optional<ArticleGraphVertex> getVertex(String nameId) {
+	public Optional<ArticleGraphVertex> getVertex(Integer nameId) {
 			return Optional.ofNullable(idToVertexMap.getOrDefault(nameId, null));
 	}
 	
-	List<Map<String, String>> getAdjVertices(ArticleGraphVertex v) {
+	List<Map<Integer, Integer>> getAdjVertices(ArticleGraphVertex v) {
 		if (adjVertices.containsKey(v.getNameId())) {
 			return adjVertices.get(v.getNameId());
 		}

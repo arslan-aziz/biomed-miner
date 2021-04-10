@@ -13,7 +13,7 @@ const parseResponse = (entityGraph) => {
     for (const val in entityGraph.adjVertices) {
         // add corresponding edges
         entityGraph.adjVertices[val].forEach(other => {
-        graphData.links.push({source: val, target: Object.keys(other)[0], value: 1})
+        graphData.links.push({source: parseInt(val), target: parseInt(Object.keys(other)[0]), value: 1})
         })
     }
 
