@@ -33,10 +33,13 @@ public class NlpExtractionController {
 	}
 	
 	@PostMapping(value="/nlpextraction", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> requestSearch(@RequestParam("querykey") String query) throws IOException, InterruptedException, SAXException, ParserConfigurationException {
+	public ResponseEntity<?> requestSearch(
+			@RequestParam("querykey") String query,
+			@RequestParam("querynodeid") String queryNodeId
+		) throws IOException, InterruptedException, SAXException, ParserConfigurationException {
 		String queryKey = NlpExtractionService.normalizeQuery(query);
 
-		nlpExtractionService.createNlpExtraction(queryKey);
+		nlpExtractionService.createNlpExtraction(queryKey, queryNodeId);
 
 		// return queryKey for client to use in follow-on request
 		return ResponseEntity.ok(queryKey);

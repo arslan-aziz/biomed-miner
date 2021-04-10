@@ -58,8 +58,8 @@ public class NlpExtractionService {
 	
 	// handle query processing and store result in db
 	@Async
-	public void createNlpExtraction(String keyword) throws IOException, InterruptedException, SAXException, ParserConfigurationException {
-		logger.info("Received service query " + keyword);
+	public void createNlpExtraction(String keyword, String queryNodeId) throws IOException, InterruptedException, SAXException, ParserConfigurationException {
+		logger.info("Received service query " + keyword + " with node id " + queryNodeId);
 		// normalize query
 		keyword = NlpExtractionService.normalizeQuery(keyword);
 		
@@ -77,9 +77,12 @@ public class NlpExtractionService {
 		
 		// MOCK ENTITY EXTRACTION AND GRAPH GENERATION
 		ArticleGraph articleGraph = fsArticleLoader.getProcessedArticleFromId("1234").getGraph();
-		// put the current vertex and link to a vertex in the graph
-		articleGraph.putVertex(new ArticleGraphVertex.ArticleGraphVertexBuilder().withNameId(keyword).withNomenclature(keyword).build());
-		articleGraph.addEdge(articleGraph.getVertex("1").get(), articleGraph.getVertex(keyword).get(), new ArticleGraphEdgeProperties.ArticleGraphEdgePropertiesBuilder().withNameId("testedge").build());
+		
+		// if event has a valid queryNodeId, then put the current vertex and link to a vertex in the graph
+		if (queryNodeId != "-1") {
+			articleGraph.putVertex(new ArticleGraphVertex.ArticleGraphVertexBuilder().withNameId(queryNodeId).withNomenclature(keyword).build());
+			articleGraph.addEdge(articleGraph.getVertex("1").get(), articleGraph.getVertex(queryNodeId).get(), new ArticleGraphEdgeProperties.ArticleGraphEdgePropertiesBuilder().withNameId("testedge").build());	
+		}
 		
 		// serialize graph to json string
 		ObjectMapper objectMapper = new ObjectMapper();

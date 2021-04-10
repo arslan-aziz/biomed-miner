@@ -1,4 +1,4 @@
-const mergeGraphs = (graph1, graph2, nodeId) => {
+const mergeGraphs = (graph1, graph2) => {
     let graphData = {
         nodes: [],
         links: []

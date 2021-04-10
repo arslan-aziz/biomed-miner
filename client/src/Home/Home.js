@@ -39,16 +39,15 @@ const Home = () => {
             })
     }
 
-    const searchHandler = (evt) => {
-        evt.preventDefault()
-        let queryValue = evt.target[0].value
-        console.log(queryValue)
-
+    const nlpExtractionRequest = (queryValue, queryId, doMerge) => {
         let url = 'http://127.0.0.1:8080/nlpextraction'
         const postQueryOptions = {
             url: url,
             method: 'POST',
-            params: { querykey: queryValue }
+            params: {
+                querykey: queryValue,
+                querynodeid: queryId
+            }
         }
         const getQueryOptions = {
             url: url,
@@ -64,9 +63,15 @@ const Home = () => {
                 console.log(getQueryOptions)
                 poll(() => axios(getQueryOptions).then(
                     response => {
+                        // TODO: why is the graph object referred to as "entityGraph" in this specific endpoint?
                         let parsedEntityGraph = JSON.parse(response.data.entityGraph)
                         console.log(parsedEntityGraph)
-                        setGraphData(parseResponse(parsedEntityGraph))
+                        if (doMerge) {
+                            setGraphData(mergeGraphs(graphData, parseResponse(parsedEntityGraph)))
+                        }
+                        else {
+                            setGraphData(parseResponse(parsedEntityGraph))
+                        }
                     }
                 ), 5, 1000)
             })
@@ -75,25 +80,13 @@ const Home = () => {
             })
     }
 
-    const selectHandler = (selector) => {
-        console.log(selector);
+    const searchHandler = (evt) => {
+        evt.preventDefault()
+        let queryValue = evt.target[0].value
+        console.log(queryValue)
 
-        // get resource id from selection
-        let articleId = selectionToIdDict[selector];
-        let url = `http://${net_config.server_ip}/article/${articleId}`
+        nlpExtractionRequest(queryValue, -1, false)
 
-        const options = {
-            url: url,
-            method: 'GET'
-        }
-
-        axios(options)
-            .then(response => {
-                setGraphData(parseResponse(response))
-            })
-            .catch(error => {
-                console.log(error)
-            })
     }
 
     const clickHandler = (clickEvent) => {
@@ -101,6 +94,9 @@ const Home = () => {
         let queryValue = clickEvent.name
         console.log(queryValue)
 
+        nlpExtractionRequest(queryValue, nodeId, true)
+
+        /*
         let url = 'http://127.0.0.1:8080/nlpextraction'
         const options = {
             url: url,
@@ -111,9 +107,33 @@ const Home = () => {
         axios(options)
             .then(response => {
                 console.log(response)
-                let graphDataInc = parseResponse(response)
+                let graphDataInc = parseResponse(response.data.graph)
                 // link new graph to existing graph on query node
-                setGraphData(mergeGraphs(graphData, graphDataInc, nodeId))
+                setGraphData(mergeGraphs(graphData, graphDataInc))
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        */
+    }
+
+    const selectHandler = (selector) => {
+        console.log(selector);
+
+        // get resource id from selection
+        let articleId = selectionToIdDict[selector];
+        // let url = `http://${net_config.server_ip}/article/${articleId}`
+        let url = `http://127.0.0.1:8080/article/${articleId}`
+
+        const options = {
+            url: url,
+            method: 'GET'
+        }
+
+        axios(options)
+            .then(response => {
+                console.log(response)
+                setGraphData(parseResponse(response.data.graph))
             })
             .catch(error => {
                 console.log(error)
