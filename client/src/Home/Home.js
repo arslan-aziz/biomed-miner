@@ -40,7 +40,7 @@ const Home = () => {
     }
 
     const nlpExtractionRequest = (queryValue, queryId, doMerge) => {
-        let url = 'http://127.0.0.1:8080/nlpextraction'
+        let url = `http://${net_config.server_ip}/nlpextraction`
         const postQueryOptions = {
             url: url,
             method: 'POST',
@@ -104,8 +104,7 @@ const Home = () => {
 
         // get resource id from selection
         let articleId = selectionToIdDict[selector];
-        // let url = `http://${net_config.server_ip}/article/${articleId}`
-        let url = `http://127.0.0.1:8080/article/${articleId}`
+        let url = `http://${net_config.server_ip}/article/${articleId}`
 
         const options = {
             url: url,
