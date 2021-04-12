@@ -1,0 +1,22 @@
+The client application is deployed via static hosting on S3.
+- Build the static package using command 'npm run build'
+- Copy the contents to the s3 bucket.
+	- Navigate to dir containing the build files.
+	- Execute aws s3 sync . s3://biomed-app
+
+The backend application is containerized and deployed using ECS.
+- Task definition settings: 
+	- Contains three containers:
+		- spring boot app
+		- flask app
+		- postgres container
+	- spring boot app and flask app pull from docker hub latest images.
+		To update, rebuild images.
+		- spring boot app -> copy app jar to build dir as 'app.jar' and then build image.
+		- flask app -> copy requirements.txt and app.py to resources dir and then build image.
+	- task networking is of type 'host' so containers communicate via localhost interface
+	- 'host' networking mode does not allow port mapping so spring boot app is exposed directly on 8080
+- EC2 requires user data script to properly init database
+	- set up aws cli
+	- download schema sql file from biomed-app-cluster-resources into /docker-init... dir
+	- /docker-init... dir in container is mapped as bind mount to /docker-init... dir in postgres container in task definition

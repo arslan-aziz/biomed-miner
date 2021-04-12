@@ -1,4 +1,4 @@
-package com.arslan_aziz.food_for_thought.application;
+package com.arslan_aziz.food_for_thought.application.filters;
 
 import java.io.IOException;
 
@@ -28,5 +28,4 @@ public class CORSAllowFilter implements Filter {
         response.setHeader("Access-Control-Max-Age", "3600");    
         chain.doFilter(req, response);
     }
-
 }

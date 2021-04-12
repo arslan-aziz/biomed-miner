@@ -34,6 +34,12 @@
 		</dependency>
 		
 		<dependency>
+		  <groupId>com.google.guava</groupId>
+		  <artifactId>guava</artifactId>
+		  <version>29.0-jre</version>
+		</dependency>
+		
+		<dependency>
 		  <groupId>com.arslan_aziz.food_for_thought</groupId>
 		  <artifactId>service</artifactId>
 		  <version>${project.version}</version>
